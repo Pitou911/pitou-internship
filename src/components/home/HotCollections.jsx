@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import OwlCarousel from "react-owl-carousel";
 import "owl.carousel/dist/assets/owl.carousel.css";
 import "owl.carousel/dist/assets/owl.theme.default.css";
-// import Slider from "react-slick";
+import Skeleton from "../UI/Skeleton";
 import axios from "axios";
 import { Link } from "react-router-dom";
 
@@ -12,14 +12,11 @@ const HotCollections = () => {
     const { data } = await axios.get(
       "https://us-central1-nft-cloud-functions.cloudfunctions.net/hotCollections"
     );
-    console.log(data);
     setCollections(data);
   }
 
   useEffect(() => {
-    setTimeout(() => {
-      main();
-    }, 3000);
+    main();
   }, []);
 
   const options = {
@@ -61,7 +58,7 @@ const HotCollections = () => {
               {collections.map((collection) => (
                 <div className='nft_coll' key={collection.id}>
                   <div className='nft_wrap'>
-                    <Link to='/item-details'>
+                    <Link to={`/item-details/${collection.nftId}`}>
                       <img
                         src={collection.nftImage}
                         className='lazy img-fluid'
@@ -70,7 +67,7 @@ const HotCollections = () => {
                     </Link>
                   </div>
                   <div className='nft_coll_pp'>
-                    <Link to='/author'>
+                    <Link to={`/author/${collection.authorId}`}>
                       <img
                         className='lazy pp-coll'
                         src={collection.authorImage}
@@ -91,16 +88,26 @@ const HotCollections = () => {
           ) : (
             <>
               {new Array(4).fill(0).map((_, index) => (
-                <div className='col-lg-3 col-md-6 col-sm-6 col-xs-12 p-1'>
+                <div
+                  className='col-lg-3 col-md-6 col-sm-6 col-xs-12 p-1'
+                  key={index}
+                >
                   <div className='nft_coll' key={index}>
-                    <div className='nft_wrap lazy img-fluid nft-wrap--skeleton'></div>
+                    <div className='nft_wrap lazy img-fluid'>
+                      <Skeleton width={`100%`} height={`320px`} />
+                    </div>
                     <div className='nft_coll_pp'>
-                      <div className='lazy pp-coll pp-coll--skeleton'></div>
+                      <Skeleton
+                        width={`50px`}
+                        height={`50px`}
+                        borderRadius={`50%`}
+                      />
                       <i className='fa fa-check'></i>
                     </div>
                     <div className='nft_coll_info'>
-                      <div className='header--skeleton'></div>
-                      <div className='name--skeleton'></div>
+                      <Skeleton width={`90px`} height={`20px`} />
+                      <br />
+                      <Skeleton width={`75px`} height={`20px`} />
                     </div>
                   </div>
                 </div>
