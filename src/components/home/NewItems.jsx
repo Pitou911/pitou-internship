@@ -5,12 +5,10 @@ import "owl.carousel/dist/assets/owl.carousel.css";
 import "owl.carousel/dist/assets/owl.theme.default.css";
 import axios from "axios";
 import Skeleton from "../UI/Skeleton";
+import CountdownTimer from "../UI/CountdownTimer";
 
 const NewItems = () => {
   const [items, setItems] = useState([]);
-  const [hours, setHours] = useState(0);
-  const [minutes, setMinutes] = useState(0);
-  const [seconds, setSeconds] = useState(0);
 
   async function main() {
     const { data } = await axios.get(
@@ -52,20 +50,6 @@ const NewItems = () => {
     main();
   }, []);
 
-  useEffect(() => {
-    const timer = setTimeout(() => {
-      const remainingTime = calMilisecond(items[0].expiryDate);
-      if (remainingTime > 0) {
-        const hours = Math.floor(remainingTime / 1000 / 60 / 60) % 24;
-        const minutes = Math.floor(remainingTime / 1000 / 60) % 60;
-        const seconds = Math.floor(remainingTime / 1000) % 60;
-        setHours(hours);
-        setMinutes(minutes);
-        setSeconds(seconds);
-      }
-    }, 1000);
-    return () => clearTimeout(timer);
-  }, [items]);
   return (
     <section id='section-items' className='no-bottom'>
       <div className='container'>
@@ -95,8 +79,7 @@ const NewItems = () => {
                     <div className='de_countdown'>
                       {calMilisecond(item.expiryDate) > 0 ? (
                         <>
-                          <span>{hours}</span>h <span>{minutes}</span>m
-                          <span>{seconds}</span>s
+                          <CountdownTimer expiryDate={item.expiryDate} />
                         </>
                       ) : (
                         <>Expired</>
