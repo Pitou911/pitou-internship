@@ -28,7 +28,6 @@ const ExploreItems = () => {
   function filteredItems(filter) {
     if (filter === "price_low_to_high") {
       setExploreItems(
-        //books.slice() means we just change the clone of it
         exploreItems
           .slice()
           .sort((a, b) => (a.price || a.price) - (b.price || b.price))
@@ -36,7 +35,6 @@ const ExploreItems = () => {
     }
     if (filter === "price_high_to_low") {
       setExploreItems(
-        //books.slice() means we just change the clone of it
         exploreItems
           .slice()
           .sort((a, b) => (b.price || b.price) - (a.price || a.price))
