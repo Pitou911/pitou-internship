@@ -15,14 +15,14 @@ const Author = () => {
     const { data } = await axios.get(
       `https://us-central1-nft-cloud-functions.cloudfunctions.net/authors?author=${id}`
     );
+
     setFollowers(data.followers);
     setAuthorItems(data);
     setLoading(false);
   }
+
   useEffect(() => {
     window.scrollTo(0, 0);
-  }, []);
-  useEffect(() => {
     main();
   }, []);
 
