@@ -27,24 +27,32 @@ const TopSellers = () => {
             {sellers.length ? (
               <ol className='author_list'>
                 {sellers.map((seller, index) => (
-                  <li key={index}>
-                    <div className='author_list_pp'>
-                      <Link to={`/author/${seller.authorId}`}>
-                        <img
-                          className='lazy pp-author'
-                          src={seller.authorImage}
-                          alt=''
-                        />
-                        <i className='fa fa-check'></i>
-                      </Link>
-                    </div>
-                    <div className='author_list_info'>
-                      <Link to={`/author/${seller.authorId}`}>
-                        {seller.authorName}
-                      </Link>
-                      <span>{seller.price} ETH</span>
-                    </div>
-                  </li>
+                  <div
+                    data-aos='fade-zoom-in'
+                    data-aos-easing='ease-in-back'
+                    data-aos-delay='0'
+                    data-aos-duration='800'
+                    data-aos-offset='0'
+                  >
+                    <li key={index}>
+                      <div className='author_list_pp'>
+                        <Link to={`/author/${seller.authorId}`}>
+                          <img
+                            className='lazy pp-author'
+                            src={seller.authorImage}
+                            alt=''
+                          />
+                          <i className='fa fa-check'></i>
+                        </Link>
+                      </div>
+                      <div className='author_list_info'>
+                        <Link to={`/author/${seller.authorId}`}>
+                          {seller.authorName}
+                        </Link>
+                        <span>{seller.price} ETH</span>
+                      </div>
+                    </li>
+                  </div>
                 ))}
               </ol>
             ) : (
